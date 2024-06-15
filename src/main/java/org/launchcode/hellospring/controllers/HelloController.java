@@ -11,6 +11,8 @@ import java.util.List;
  * Created by Chris Bay
  */
 @Controller
+@ResponseBody
+@RequestMapping("hello")
 public class HelloController {
 
     //    // Handle request at path /hello
@@ -19,15 +21,14 @@ public class HelloController {
 //    public String hello() {
 //        return "Hello, Spring!";
 //    }
-
+    //lives at hello/goodbye
     @GetMapping("goodbye")
-    @ResponseBody
     public String goodbye() {
         return "Goodbye, Spring!";
     }
 
     // Handles requests of the form /hello?name=LaunchCode
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     public String helloWithQueryParam(@RequestParam String name, Model model) {
         String greeting= "Hello, " + name + "!";
         model.addAttribute("greeting", greeting);
@@ -35,16 +36,14 @@ public class HelloController {
     }
 
     // Handles requests of the form /hello/LaunchCode
-    @GetMapping("hello/{name}")
+    @GetMapping("{name}")
     public String helloWithPathParam(@PathVariable String name, Model model) {
         String greeting = "Hello, " + name + "!";
         model.addAttribute("greeting", greeting);
         return "hello";
     }
-
-
+    //lives at /hello/form
     @GetMapping("form")
-    @ResponseBody
     public String helloForm() {
         return "<html>" +
                 "<body>" +
